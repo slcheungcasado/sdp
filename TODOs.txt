@@ -1,0 +1,2 @@
+component: fix content type, text or sth else?
+enrollment constructor
