@@ -1,0 +1,7 @@
+{% extends "courses/header.html" %}
+{% block content %}
+	<p>View Course</p>
+	{% for c in courses %}
+		<p>{{c}}</p>
+	{% endfor %}
+{% endblock %}

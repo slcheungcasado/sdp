@@ -1,2 +1,12 @@
 component: fix content type, text or sth else?
 enrollment constructor
+
+
+participant -> getCategory() -> Select Category -> getDetails() -> enroll
+
+instructors -> addCourse() -> addModule() -> addComponent() -> publish() 
+			^			  ^ ^_____________|	^_______________|			 |
+			|			  |_________________________________|			 |
+			|____________________________________________________________|
+
+// add is completed through html form
