@@ -7,24 +7,21 @@ class Staff(models.Model):
 	password = models.CharField(max_length=200)
 
 
+	def __str__(self):
+		return self.username
 
 
 class Participant(Staff):
-
-	def Participant(self, username, password):
-		pass
-	def isCourseCompleted(self, courseCode):
-		pass
-	def enroll(self, couseCode):
-		pass
-	def getTakenCourses(self):
-		pass
+	# def Participant(self, username, password):
+	# 	pass
+	# def isCourseCompleted(self, courseCode):
+	# 	pass
+	# def enroll(self, couseCode):
+	# 	pass
+	# def getTakenCourses(self):
+	# 	pass
+	pass
 
 class Instructor(Staff):
-	def Instructor(self, username, password):
-		pass
-	def createCourse(self, course):
-		pass
-	def getCourse(self, courseCode):
-		pass
-
+	pass
+	
