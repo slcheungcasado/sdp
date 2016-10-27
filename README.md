@@ -4,4 +4,4 @@
 
 python v3.5
 
-django 1.10.2
+django v1.10.2
