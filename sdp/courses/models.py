@@ -1,11 +1,19 @@
+# Change log
+# AK - responsible for change 1
+#
+
 from django.db import models
 
 # Create your models here.
-from staff.models import Participant, Instructor
+# change 1 -
+from staff.models import Participant
+# from staff.models import Participant, Instructor
 
 
 class Course(models.Model):
-	instructor = models.ForeignKey(Instructor, on_delete= models.CASCADE)
+	# change 1 - 
+	instructor = models.CharField(max_length=20)
+	# instructor = models.ForeignKey(Instructor, on_delete= models.CASCADE)
 	courseCode = models.CharField(max_length=200)
 	category  = models.CharField(max_length=200)
 	isPublished = models.BooleanField(default=False)
@@ -22,20 +30,25 @@ class Course(models.Model):
 	# def publishCourse(self):
 	# 	pass
 
-
-
 class Module(models.Model):
-	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	# change 1
+	courseCode = models.CharField(max_length=20)
+	# courseCode = models.ForeignKey(Course, on_delete=models.CASCADE)
+	moduleTitle = models.CharField(max_length=200)
 	sequenceNumber = models.IntegerField()
 
 	def __str__(self):
 		return 'CourseID: ' + self.course_id+' SequenceNo: '+ self.sequenceNumber
 
 class Component(models.Model):
-	module = models.ForeignKey(Module, on_delete=models.CASCADE)
+	# change 1
+	courseCode = models.CharField(max_length=20)
+	moduleTitle = models.CharField(max_length=200)
+	# module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	order = models.IntegerField()
 	contentType = models.CharField(max_length=200)
-	content = models.TextField() ##### 
+	content = models.TextField()
+	contentTitle = models.CharField(max_length=200)
 
 	def __str__(self):
 		return 'Module: '+ self.module_id+', order: '+ self.order
@@ -43,8 +56,12 @@ class Component(models.Model):
 
 class Enrollment(models.Model):
 	isCompleted = models.BooleanField(default=False)
-	course = models.ForeignKey(Course, on_delete= models.CASCADE)
-	participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+	# change 1
+	courseCode = models.CharField(max_length=20)
+	# course = models.ForeignKey(Course, on_delete= models.CASCADE)
+	# change 1
+	participant = models.CharField(max_length=20)
+	# participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
 
 
 	def __str__(self):
