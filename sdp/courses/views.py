@@ -28,10 +28,11 @@ def addCourse(request):
 		description = request.GET['description'])
 	course.save()
 
-	courses = Course.objects.all()
+	data = [course]
+	# courses = Course.objects.all()
 	# courses = Course.objects.all().filter(courseCode = request.GET['courseCode'])[:1]
 	# courses = Course.objects.all().filter(isPublished = True)
-	coursesData = serializers.serialize('json', courses)
+	coursesData = serializers.serialize('json', data)
 	return JsonResponse(coursesData, safe=False)
 
 def addModule(request, course_id):
@@ -119,7 +120,8 @@ def addComponent(request, course_id, module_id):
 		contentTitle = request.GET['contentTitle'])
 	component.save()
 
-	components = Component.objects.all().filter(courseCode = course_id).filter(moduleTitle = module_id).order_by('order')
+	#components = Component.objects.all().filter(courseCode = course_id).filter(moduleTitle = module_id).order_by('order')
+	components = Component.objects.all().order_by('order')
 	componentsData = serializers.serialize('json', components)
 	return JsonResponse(componentsData, safe=False)
 

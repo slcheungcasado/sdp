@@ -12,7 +12,7 @@ urlpatterns = [
     #courses/71/addModule
     url(r'^(?P<course_id>.+)/addModule$', views.addModule, name='addModule'),
     #courses/71/modules/12/addComponent
-    url(r'^(?P<course_id>.+)/modules/(?P<module_id>[0-9]+)/addComponent$', views.addComponent, name='addComponent'),
+    url(r'^(?P<course_id>.+)/modules/(?P<module_id>.+)/addComponent$', views.addComponent, name='addComponent'),
     
     #courses/71
     url(r'^(?P<course_id>.+)$', views.courseDescription, name='courseDescription'),

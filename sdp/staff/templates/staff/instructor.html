@@ -12,8 +12,16 @@
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.onreadystatechange = function() {
 		 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-		 		console.log(xmlHttp.responseText);
-		 		// Edit viewCourses div with xmlHttp.responseText (in json)
+		 		var data = JSON.parse(JSON.parse(xmlHttp.responseText));
+		 		$.each(data, function(index, value) {
+		 			$("#viewCourses").append("<div style='line-height:50%'><h3>" + value.fields.courseCode + ": " + value.fields.title + "</h3><p> Category: " + value.fields.category + "</p><p> Description: " + value.fields.description + "</p></div>");
+		 		
+		 			if (!value.fields.isPublished) {
+		 				$("#viewCourses").append("<button type='button'>Publish</button>");
+		 			}
+
+		 			$("#viewCourses").append("<br/>");
+		 		});
 		 	}
 		}
 		xmlHttp.open("GET", endpoint, true);
@@ -34,13 +42,18 @@
 	<script type="text/javascript">
 		function addCourse() {
 			var form = document.getElementById('addCourseForm');
-			var endpoint = "http://localhost:8000/courses/addCourse"+"?instructor="+form.instructor.value+"&courseCode="+form.courseCode.value+"&category="+form.category.value+"&isPublished="+form.isPublished.value+"&title="+form.title.value+"&description="+form.description.value;
+			var endpoint = "http://localhost:8000/courses/addCourse/"+"?instructor="+form.instructor.value+"&courseCode="+form.courseCode.value+"&category="+form.category.value+"&isPublished="+form.isPublished.value+"&title="+form.title.value+"&description="+form.description.value;
 
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() {
 			 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-			 		console.log(xmlHttp.responseText);
-			 		// Edit viewCourses div with xmlHttp.responseText (in json)
+			 		var data = JSON.parse(JSON.parse(xmlHttp.responseText));
+		 			$("#viewCourses").append("<div style='line-height:50%'><h3>" + data[0].fields.courseCode + ": " + data[0].fields.title + "</h3><p> Category: " + data[0].fields.category + "</p><p> Description: " + data[0].fields.description + "</p></div>");
+		 		
+		 			if (!data[0].isPublished)
+		 				$("#viewCourses").append("<button type='button'>Publish</button>");
+
+		 			$("#viewCourses").append("<br/>");
 			 	}
 			}
 			xmlHttp.open("GET", endpoint, true);
@@ -70,8 +83,10 @@
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() {
 			 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-			 		console.log(xmlHttp.responseText);
-			 		// Edit viewModules div with xmlHttp.responseText (in json)
+			 		var data = JSON.parse(JSON.parse(xmlHttp.responseText));
+			 		$.each(data, function(index, value) {
+		 				$("#viewModules").append("<h3>" + value.fields.courseCode + ": " + value.fields.moduleTitle + "</h3>");
+		 			});
 			 	}
 			}
 			xmlHttp.open("GET", endpoint, true);
@@ -99,13 +114,17 @@
 	<script>
 		function addComponent() {
 			var form = document.getElementById('addComponentForm');
-			var endpoint = "http://localhost:8000/courses/"+form.courseCode.value+"modules/"+form.moduleTitle.value+"/addComponent"+"?order="+form.order.value+"&contentType="+form.contentType.value+"&contentTitle="+form.contentTitle.value+"&content="+form.content.value;
+			var endpoint = "http://localhost:8000/courses/"+form.courseCode.value+"/modules/"+form.moduleTitle.value+"/addComponent"+"?order="+form.order.value+"&contentType="+form.contentType.value+"&contentTitle="+form.contentTitle.value+"&content="+form.content.value;
 
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() {
 			 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 			 		console.log(xmlHttp.responseText);
-			 		// Edit viewCompnents div with xmlHttp.responseText (in json)
+			 		var data = JSON.parse(JSON.parse(xmlHttp.responseText));
+			 		$.each(data, function(index, value) {
+		 				$("#viewComponents").append("<div style='line-height:50%'><h3>" + value.fields.courseCode + ": " + value.fields.moduleTitle + ": " + value.fields.contentTitle + "</h3><p>" + value.fields.content + "</p></div>");
+		 			});
+
 			 	}
 			}
 			xmlHttp.open("GET", endpoint, true);
